@@ -2,18 +2,21 @@ package pro.sky.skyprodb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import pro.sky.skyprodb.dao.EmployeeDAO;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import pro.sky.skyprodb.service.EmployeeDAO;
 import pro.sky.skyprodb.model.Employee;
 import pro.sky.skyprodb.service.EmployeeDaoImpl;
 
+import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class SkyproDbApplication {
 
     public static void main(String[] args) {
+        //SpringApplication.run(SkyproDbApplication.class,args);
         final String user = "postgres";
         final String password = "1";
         final String url = "jdbc:postgresql://localhost:5432/skypro";
@@ -38,7 +41,7 @@ public class SkyproDbApplication {
                 System.out.println();
 
 
-                EmployeeDAO employeeDAO = new EmployeeDaoImpl(connection);
+                EmployeeDAO employeeDAO = new EmployeeDaoImpl();
 
                 Employee employee = new Employee("Leonid", "Shevchenko", "Man",55,3);
 
@@ -47,6 +50,7 @@ public class SkyproDbApplication {
 
                 // Создаем список наполняя его объектами, которые получаем
                 // путем вызова метода для получения всех элементов таблицы
+                employeeDAO.delete(employee);
                 List<Employee> list = new ArrayList<>(employeeDAO.readAll());
 
                 // Выведем список в консоль
