@@ -38,7 +38,7 @@ public class EmployeesController {
 
     @PutMapping("{id}")
     @Operation(
-            summary = "редактирование ингридиента"
+            summary = "редактирование сотрудника"
     )
     public ResponseEntity editEmpoyee(@RequestBody Employee employee){
         employeeDAO.update(employee);
@@ -47,7 +47,7 @@ public class EmployeesController {
 
     @DeleteMapping("{id}")
     @Operation(
-            summary = "удаление ингридиента"
+            summary = "удаление сотрудника"
     )
     public ResponseEntity deleteEmployee(@PathVariable Employee employee){
         employeeDAO.delete(employee);
