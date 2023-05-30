@@ -1,12 +1,25 @@
 package pro.sky.skyprodb.model;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "city")
 public class City {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         int city_id;
+        @Column
         String city_name;
 
-        public City(int city_id, String city_name) {
-                this.city_id = city_id;
+        @OneToMany(mappedBy = "city_id", cascade = CascadeType.ALL, orphanRemoval = true)
+        private List<Employee> employees;
+
+        public City(String city_name) {
                 this.city_name = city_name;
+        }
+
+        public City() {
         }
 
         public int getCity_id() {

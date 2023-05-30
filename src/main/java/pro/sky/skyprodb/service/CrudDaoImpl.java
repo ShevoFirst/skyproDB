@@ -6,22 +6,22 @@ import org.springframework.stereotype.Service;
 import pro.sky.skyprodb.model.Employee;
 import pro.sky.skyprodb.dao.HibernateSessionFactoryUtil;
 
-import java.sql.Connection;
 import java.util.List;
 @Service
-public class EmployeeDaoImpl implements EmployeeDAO {
+public class CrudDaoImpl implements CrudDao {
+
     @Override
-    public void create(Employee employee) {
+    public void create(Object obj) {
         try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()){
             Transaction transaction = session.beginTransaction();
-            session.save(employee);
+            session.save(obj);
             transaction.commit();
         }
     }
 
     @Override
-    public Employee readById(long id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Employee.class,id);
+    public Object readById(long id, Class a) {
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(a.getClass(),id);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class EmployeeDaoImpl implements EmployeeDAO {
     }
 
     @Override
-    public void update(Employee employee) {
+    public void update(Object employee) {
         try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.update(employee);
@@ -41,11 +41,12 @@ public class EmployeeDaoImpl implements EmployeeDAO {
     }
 
     @Override
-    public void delete(Employee employee) {
+    public void delete(Object employee) {
         try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.delete(employee);
             transaction.commit();
         }
     }
+
 }

@@ -1,5 +1,7 @@
 package pro.sky.skyprodb.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Objects;
@@ -25,11 +27,11 @@ public class Employee {
 
     @Column(name = "age")
     private int age;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city_id;
 
-    @Column(name = "city_id")
-    private int city_id;
-
-    public Employee( String first_name, String last_name, String gender, int age, int city_id) {
+    public Employee( String first_name, String last_name, String gender, int age, City city_id) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.gender = gender;
@@ -40,8 +42,8 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(BigInteger i, String leonid, String shevchenko, String man, int i1, int i2) {
-        this.id = i;
+    public Employee(BigInteger id, String first_name, String last_name, String gender, int age, City city_id) {
+        this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.gender = gender;
@@ -81,11 +83,11 @@ public class Employee {
         this.age = age;
     }
 
-    public int getCity_id() {
+    public City getCity_id() {
         return city_id;
     }
 
-    public void setCity_id(int city_id) {
+    public void setCity_id(City city_id) {
         this.city_id = city_id;
     }
 
