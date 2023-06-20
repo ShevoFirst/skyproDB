@@ -5,7 +5,6 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 import pro.sky.skyprodb.model.Employee;
 import pro.sky.skyprodb.dao.HibernateSessionFactoryUtil;
-
 import java.util.List;
 @Service
 public class CrudDaoImpl implements CrudDao {
@@ -21,7 +20,9 @@ public class CrudDaoImpl implements CrudDao {
 
     @Override
     public Object readById(long id, Class a) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(a.getClass(),id);
+        try(Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
+            return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(a.getClass(), id);
+        }
     }
 
     @Override

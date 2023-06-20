@@ -8,33 +8,34 @@ import java.util.List;
 public class City {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        int city_id;
-        @Column
-        String city_name;
+        @Column(name = "city_id",unique=true, nullable = false)
+        private int cityId;
+        @Column(name = "city_name")
+        private String cityName;
 
-        @OneToMany(mappedBy = "city_id", cascade = CascadeType.ALL, orphanRemoval = true)
+        @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
         private List<Employee> employees;
 
         public City(String city_name) {
-                this.city_name = city_name;
+                this.cityName = city_name;
         }
 
         public City() {
         }
 
-        public int getCity_id() {
-                return city_id;
+        public int getCityId() {
+                return cityId;
         }
 
-        public void setCity_id(int city_id) {
-                this.city_id = city_id;
+        public void setCityId(int city_id) {
+                this.cityId = city_id;
         }
 
-        public String getCity_name() {
-                return city_name;
+        public String getCityName() {
+                return cityName;
         }
 
-        public void setCity_name(String city_name) {
-                this.city_name = city_name;
+        public void setCityName(String city_name) {
+                this.cityName = city_name;
         }
 }

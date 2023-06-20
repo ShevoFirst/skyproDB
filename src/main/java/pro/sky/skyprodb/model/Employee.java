@@ -1,7 +1,5 @@
 package pro.sky.skyprodb.model;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Objects;
@@ -27,16 +25,16 @@ public class Employee {
 
     @Column(name = "age")
     private int age;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "city_id")
-    private City city_id;
+    private City city;
 
     public Employee( String first_name, String last_name, String gender, int age, City city_id) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.gender = gender;
         this.age = age;
-        this.city_id = city_id;
+        this.city = city_id;
     }
 
     public Employee() {
@@ -48,7 +46,7 @@ public class Employee {
         this.last_name = last_name;
         this.gender = gender;
         this.age = age;
-        this.city_id = city_id;
+        this.city = city_id;
     }
 
     public String getFirst_name() {
@@ -83,12 +81,12 @@ public class Employee {
         this.age = age;
     }
 
-    public City getCity_id() {
-        return city_id;
+    public City getCity() {
+        return city;
     }
 
-    public void setCity_id(City city_id) {
-        this.city_id = city_id;
+    public void setCity(City city_id) {
+        this.city = city_id;
     }
 
     @Override
@@ -98,7 +96,7 @@ public class Employee {
                 ", last_name='" + last_name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", age=" + age +
-                ", city_id=" + city_id +
+                ", city_id=" + city +
                 '}';
     }
 
@@ -108,21 +106,18 @@ public class Employee {
         if (o == null || getClass() != o.getClass()) return false;
         System.out.println(43);
         Employee employee = (Employee) o;
-        return age == employee.age && city_id == employee.city_id && Objects.equals(first_name, employee.first_name) && Objects.equals(last_name, employee.last_name) && Objects.equals(gender, employee.gender);
+        return age == employee.age && city == employee.city && Objects.equals(first_name, employee.first_name) && Objects.equals(last_name, employee.last_name) && Objects.equals(gender, employee.gender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(first_name, last_name, gender, age, city_id);
+        return Objects.hash(first_name, last_name, gender, age, city);
     }
 
     public void setId(BigInteger id) {
         this.id = id;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
     public BigInteger getId() {
         return id;
     }

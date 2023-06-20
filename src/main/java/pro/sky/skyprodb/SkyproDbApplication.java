@@ -15,9 +15,12 @@ import java.util.List;
 public class SkyproDbApplication {
 
     public static void main(String[] args) {
+
         CrudDaoImpl crudDao = new CrudDaoImpl();
         City city = new City("Урюпинск");
         Employee employee = new Employee("Дмитрий", "Донсков","муж",38,city);
         crudDao.create(employee);
+        crudDao.delete(employee);
+        System.out.println(crudDao.readAll());
     }
 }
