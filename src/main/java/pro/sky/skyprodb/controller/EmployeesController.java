@@ -6,14 +6,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.skyprodb.model.Employee;
 import pro.sky.skyprodb.service.CrudDao;
+import pro.sky.skyprodb.service.CrudDaoImpl;
 
 @RestController
-@RequestMapping("/ingridient")
+@RequestMapping("/employees")
 @Tag(name = "Сотрудники", description = "CRUD операции и другие эндпоинты с сотрудниками")
 public class EmployeesController {
-    private final CrudDao crudDao;
+    private final CrudDaoImpl crudDao;
 
-    public EmployeesController(CrudDao crudDao) {
+    public EmployeesController(CrudDaoImpl crudDao) {
         this.crudDao = crudDao;
     }
 
