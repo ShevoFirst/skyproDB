@@ -2,17 +2,23 @@ package pro.sky.skyprodb.service;
 
 import pro.sky.skyprodb.model.Employee;
 
+import java.math.BigInteger;
 import java.util.List;
 
-public  interface CrudDao<T> {
+public  interface CrudDao<T extends Employee> {
 
     //создание
     void create(T employee);
 
-    T readById(long id, Class a);
+    Object readById(BigInteger id);
 
     //получение всех объектов
     List<T> readAll();
     void update(T employee);
-    void delete(T employee);
+    void deleteById(BigInteger id);
+    Integer getCountOfEmployees();
+    Integer getMediumAgeByEmployee();
+    List<Employee> GetFiveYoungestEmployees();
+
+    List<Employee> getAllEmployees(Integer page, Integer size);
 }
